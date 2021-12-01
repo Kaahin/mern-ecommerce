@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserContext from "./context/GlobalState";
+import { Footer, Navbar, ScrollToTop } from "./components";
+import GlobalStyle from "./globalStyles";
+import { Account, Home, Login, SignUp } from "./pages";
 
 function App() {
+  const [email, setEmail] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={{ email, setEmail }}>
+      <Router>
+        <GlobalStyle />
+        <ScrollToTop />
+        <Navbar />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          {!email && <Route path="/log-in" element={<Login />} />}
+          {!!email && <Route path="/log-in" element={<Account />} />}
+        </Routes>
+        <Footer />
+      </Router>
+    </UserContext.Provider>
   );
 }
 
