@@ -1,5 +1,6 @@
 export const signupObjOne = {
-  error: "This email address is already associated with an account",
+  errorMsg: "This email address is already associated with an account",
+  success: "Your registration has been successfully completed",
   header: "Create Account",
   label: ["Email", "Password", "First Name", "Last Name"],
   lightBg: true,

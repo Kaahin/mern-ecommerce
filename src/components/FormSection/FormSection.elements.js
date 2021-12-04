@@ -33,6 +33,19 @@ export const FormError = styled.div`
   text-align: left;
 `;
 
+export const FormSuccess = styled.div`
+  color: #2ed02e;
+  background-color: #f6fff6;
+  border-color: #2ed02e;
+  border: 1px solid;
+  max-width: 440px;
+  padding: 6px 12px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: left;
+`;
+
 export const FormHeader = styled.div`
   text-align: center;
   margin-bottom: 50px;

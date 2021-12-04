@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import User from "./models/User.js";
+import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -100,6 +100,9 @@ app.post("/login", async (req, res) => {
 app.post("/logout", (req, res) => {
   res.cookie("token", "").send();
 });
+
+
+// Routes
 
 // Port to listen
 app.listen(4000, () => {

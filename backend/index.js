@@ -1,15 +1,14 @@
-const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
-const dotenv = require("dotenv"); // att vi kan läsa .env filer
-const pages = require("./routes/pages");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
+import express from "express";
+import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
 
-dotenv.config(); // skapar en instans av dotenv
+// Creating an instance of dotenv
+dotenv.config(); 
 
-// connect to db
-mongoose.connect(
+// Connecting to MongoDB
+await mongoose.connect(
   process.env.DB_CONNECT,
   { useUnifiedTopology: true, UseNewUrlParser: true },
   () => {
@@ -17,25 +16,47 @@ mongoose.connect(
   }
 );
 
-const authRoute = require("./routes/auth"); // För att logga in och sign up för user.
-const secureRoute = require("./routes/secure"); // används för säkring av sidan.
+const db = mongoose.connection;
+db.on("error", console.log);
 
 //Middlewares
+const app = express();
+app.use(cookieParser());
 app.use(express.json());
-app.use(express.static("public"));
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000/sign-up",
+    origin: "http://localhost:3000",
   })
 );
-app.use(cookieParser())
 
 // Route Middlewares
-app.use("/api/user", authRoute);
-app.use("/api/secure", secureRoute);
-app.use("/", pages);
 
-app.listen(3001, () => {
+// Security and Verification ?? 
+// const secureRoute = require("./routes/secure"); // används för säkring av sidan.
+// app.use("/api/secure", secureRoute);
+//
+import authRoute from "./routes/auth.js"; // Authentication
+import regRoute from "./routes/reg.js"; // Registration
+import userRoute from "./routes/user.js"; // User data
+
+app.use("/", authRoute);
+app.use("/", regRoute);
+app.use("/", userRoute);
+
+// Routes
+
+app.get("/", (req, res) => {
+  res.send("ok");     // Creates a page with text 'ok' 
+});
+
+// Server pages
+// const pages = require("./routes/pages");
+// app.use(express.static("public"));
+// app.use("/", pages);
+
+
+// Port to listen
+app.listen(4000, () => {
   console.log("Server running");
 });

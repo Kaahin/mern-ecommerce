@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   Form,
@@ -16,14 +15,10 @@ import {
   FormSubmitBtn,
   FormTitle,
 } from "./FormSection.elements";
-
 import useForm from "./useForm";
 
-import UserContext from "../../context/GlobalState";
-
-
 const LoginSection = ({
-  error,
+  errorMsg,
   header,
   label,
   lightBg,
@@ -32,12 +27,8 @@ const LoginSection = ({
   link,
   submitLabel,
 }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState(false);
-
-  const user = useContext(UserContext);
-  // const {values, setValues, handleChange} = useForm();
+  const { handleChange, values, handleSubmitLogin, error } = useForm();
+  
   // Går det att göra ett enklare utryck??
   //----------
   const inputRef = useRef(null);
@@ -48,24 +39,6 @@ const LoginSection = ({
   };
   //-------------
 
-  const loginUser = (e) => {
-    e.preventDefault();
-
-    const data = { email, password };
-
-    axios
-      .post("http://localhost:4000/login", data, { withCredentials: true })
-      .then((response) => {
-        user.setEmail(response.data.email);
-        setEmail("");
-        setPassword("");
-        setLoginError(false);
-      })
-      .catch(() => {
-        setLoginError(true);
-      });
-  };
-
   return (
     <FormSec lightBg={lightBg}>
       <FormContainer>
@@ -73,32 +46,39 @@ const LoginSection = ({
           <FormTitle>{header}</FormTitle>
         </FormHeader>
         <FormContent>
-          <Form onSubmit={(e) => loginUser(e)}>
-            {loginError && (
+          <Form onSubmit={handleSubmitLogin}>
+            {error && (
               <FormError>
                 <FormList>
-                  <FormListItem>{error}</FormListItem>
+                  <FormListItem>{errorMsg}</FormListItem>
                 </FormList>
               </FormError>
             )}
-            <FormLabel onClick={() => onClickFocus(inputRef)} lightTextDesc={lightTextDesc}>
+            <FormLabel
+              onClick={() => onClickFocus(inputRef)}
+              lightTextDesc={lightTextDesc}
+            >
               {label[0]}
             </FormLabel>
             <FormInput
+              name="email"
               type="email"
               value={values.email}
-              onChange={(e) => setEmail(e.target.value)}
-              // onChange={handleChange}
+              onChange={handleChange}
               ref={inputRef}
               autoFocus
             />
-            <FormLabel onClick={() => onClickFocus(inputRef2)} lightTextDesc={lightTextDesc}>
+            <FormLabel
+              onClick={() => onClickFocus(inputRef2)}
+              lightTextDesc={lightTextDesc}
+            >
               {label[1]}
             </FormLabel>
             <FormInput
+              name="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={values.password}
+              onChange={handleChange}
               ref={inputRef2}
             />
             <FormSubmit>

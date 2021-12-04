@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useContext, useState, useRef } from "react";
+import React, { useRef } from "react";
 import {
   Form,
   FormContainer,
@@ -13,26 +12,22 @@ import {
   FormSec,
   FormSubmit,
   FormSubmitBtn,
+  FormSuccess,
   FormTitle,
 } from "./FormSection.elements";
 import useForm from "./useForm";
-import UserContext from "../../context/GlobalState";
 
 const RegSection = ({
-  error,
+  errorMsg,
   header,
   label,
   lightBg,
   lightTextDesc,
   lightTopLine,
   submitLabel,
+  success,
 }) => {
-  const [name, setName] = useState(["", ""]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [signupError, setSignUpError] = useState(false);
-
-  const user = useContext(UserContext);
+  const { error, handleChange, handleSubmitReg, values } = useForm();
 
   // Går det att göra ett enklare utryck??
   //----------
@@ -45,34 +40,6 @@ const RegSection = ({
     input.current.focus();
   };
 
-  //----------
-
-  const createUser = (e) => {
-    e.preventDefault();
-    const data = { first: name[0], last: name[1], email, password };
-    axios
-      .post("http://localhost:4000/register", data, { withCredentials: true })
-      .then((response) => {
-        user.setEmail(response.data.email);
-        setEmail("");
-        setPassword("");
-        setSignUpError(false);
-      })
-      .catch(() => {
-        setSignUpError(true);
-      });
-  };
-
-  const handleChange = (index, value) => {
-    setName((prevName) =>
-      prevName.map((item, idx) => (idx === index ? value : item))
-    );
-  };
-
- 
-
-
-
   return (
     <>
       <FormSec lightBg={lightBg}>
@@ -81,13 +48,20 @@ const RegSection = ({
             <FormTitle>{header}</FormTitle>
           </FormHeader>
           <FormContent>
-            <Form onSubmit={(e) => createUser(e)}>
-              {signupError && (
+            <Form onSubmit={handleSubmitReg}>
+              {error === true && (
                 <FormError>
                   <FormList>
-                    <FormListItem>{error}</FormListItem>
+                    <FormListItem>{errorMsg}</FormListItem>
                   </FormList>
                 </FormError>
+              )}
+              {error === false && (
+                <FormSuccess>
+                  <FormList>
+                    <FormListItem>{success}</FormListItem>
+                  </FormList>
+                </FormSuccess>
               )}
               <FormLabel
                 onClick={() => onClickFocus(inputRef)}
@@ -96,9 +70,10 @@ const RegSection = ({
                 {label[2]}
               </FormLabel>
               <FormInput
+                name="first"
                 type="text"
-                value={name[0]}
-                onChange={(e) => handleChange(0, e.target.value)}
+                value={values.first}
+                onChange={handleChange}
                 autoFocus
                 ref={inputRef}
               />
@@ -109,9 +84,10 @@ const RegSection = ({
                 {label[3]}
               </FormLabel>
               <FormInput
+                name="last"
                 type="text"
-                value={name[1]}
-                onChange={(e) => handleChange(1, e.target.value)}
+                value={values.last}
+                onChange={handleChange}
                 ref={inputRef2}
               />
               <FormLabel
@@ -121,9 +97,10 @@ const RegSection = ({
                 {label[0]}
               </FormLabel>
               <FormInput
+                name="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={values.email}
+                onChange={handleChange}
                 ref={inputRef3}
               />
               <FormLabel
@@ -133,9 +110,10 @@ const RegSection = ({
                 {label[1]}
               </FormLabel>
               <FormInput
+                name="password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={values.password}
+                onChange={handleChange}
                 ref={inputRef4}
               />
               <FormSubmit>

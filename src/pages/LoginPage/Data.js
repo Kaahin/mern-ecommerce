@@ -1,5 +1,5 @@
 export const loginObjOne = {
-  error: "Incorrect email or password.",
+  errorMsg: "Incorrect email or password.",
   header: "Login",
   label: ["Email", "Password"],
   lightBg: true,

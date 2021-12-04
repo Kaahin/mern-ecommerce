@@ -1,0 +1,18 @@
+<mxfile host="65bd71144e">
+    <diagram id="aFN4U3syryA9rCMqTPJ3" name="Page-1">
+        <mxGraphModel dx="350" dy="350" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="AUTH" style="swimlane;" vertex="1" collapsed="1" parent="1">
+                    <mxGeometry x="80" y="30" width="70" height="23" as="geometry">
+                        <mxRectangle x="80" y="30" width="200" height="200" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="Todo:&amp;nbsp;&lt;br&gt;*Forgot password&lt;br&gt;*Automatic Login after Registration&lt;br&gt;&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="3">
+                    <mxGeometry y="50" width="200" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
