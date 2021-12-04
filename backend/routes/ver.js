@@ -2,9 +2,9 @@ import express from "express";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
-const userRoute = express.Router();
+const verRoute = express.Router();
 
-userRoute.get("/user", (req, res) => {
+verRoute.get("/user", (req, res) => {
   if (!req.cookies.token) {
     return res.json({});
   }
@@ -14,4 +14,4 @@ userRoute.get("/user", (req, res) => {
   });
 });
 
-export default userRoute;
+export default verRoute;

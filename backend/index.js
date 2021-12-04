@@ -38,11 +38,11 @@ app.use(
 //
 import authRoute from "./routes/auth.js"; // Authentication
 import regRoute from "./routes/reg.js"; // Registration
-import userRoute from "./routes/user.js"; // User data
+import verRoute from "./routes/ver.js"; // User data
 
 app.use("/", authRoute);
 app.use("/", regRoute);
-app.use("/", userRoute);
+app.use("/", verRoute);
 
 // Routes
 

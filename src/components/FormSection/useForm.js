@@ -34,6 +34,10 @@ const useForm = () => {
           }));
 
           setError(false);
+
+          setTimeout(() => {
+            window.location.reload(true);
+          }, 2000);
         }
       })
       .catch(() => {
@@ -61,8 +65,7 @@ const useForm = () => {
           setError(false);
 
           setTimeout(() => {
-            window.location = "/log-in";
-            setError(null);
+            window.location = "/account";
           }, 3000);
         }
       })

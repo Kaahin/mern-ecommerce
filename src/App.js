@@ -20,6 +20,8 @@ function App() {
       .then((response) => {
         setValues((values) => ({
           ...values,
+          first: response.data.first,
+          last: response.data.last,
           email: response.data.email,
         }));
       });
@@ -34,8 +36,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/sign-up" element={<SignUp />} />
-          {!values.email && <Route path="/log-in" element={<Login />} />}
-          {!!values.email && <Route path="/log-in" element={<Account />} />}
+          {!values.email && <Route path="/account" element={<Login />} />}
+          {!!values.email && <Route path="/account" element={<Account />} />}
         </Routes>
         <Footer />
       </Router>
