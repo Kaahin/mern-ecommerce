@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import UserContext from "../../context/GlobalState";
+import UserContext from "../context/GlobalState";
 
 const useForm = () => {
   const [values, setValues] = useState({

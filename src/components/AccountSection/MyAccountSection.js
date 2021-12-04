@@ -11,7 +11,7 @@ import Heading, {
   AcctSubtitle,
 } from "./AccountSection.elements";
 
-const AccountSection = ({ area, header, lightBg, link, subtitle }) => {
+const MyAccountSection = ({ area, header, lightBg, link, subtitle }) => {
   const [names, setNames] = useState({
     first: "",
     last: "",
@@ -36,6 +36,7 @@ const AccountSection = ({ area, header, lightBg, link, subtitle }) => {
       });
   };
   return (
+    <>
     <AcctSec lightBg={lightBg}>
       <AcctContainer>
         <AcctHeader>
@@ -61,7 +62,7 @@ const AccountSection = ({ area, header, lightBg, link, subtitle }) => {
             </AcctSubtitle>
             <AcctSubtitle>
               <Link
-                to="account/addresses"
+                to="./addresses"
                 style={{
                   textDecoration: "none",
                   color: "#1c2237",
@@ -75,7 +76,8 @@ const AccountSection = ({ area, header, lightBg, link, subtitle }) => {
         </AcctGrid>
       </AcctContainer>
     </AcctSec>
+    </>
   );
 };
 
-export default AccountSection;
+export default MyAccountSection;

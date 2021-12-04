@@ -60,8 +60,26 @@ export const AcctGridItem = styled.div`
   min-height: 1px;
   padding-left: 22px;
   grid-area: ${({ area }) => area};
+
   @media screen and (max-width: 768px) {
     padding-left: 17px;
+  }
+`;
+
+export const AcctLink = styled.link`
+  text-decoration: none;
+  background: 0 0;
+  color: black;
+`;
+
+export const AcctNav = styled.nav`
+  font-size: 11px;
+  margin: 0.25px 0 10px;
+  text-align: center !important;
+  color: black;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 15px;
   }
 `;
 
@@ -70,6 +88,8 @@ export const AcctSec = styled.main`
   padding: 60px 0 260px 0;
   background: ${({ lightBg }) => (lightBg ? "#fff" : "#101522")};
 `;
+
+export const AcctSpan = styled.span``;
 
 export const AcctSubtitle = styled.p`
   font-family: "Source Sans Pro", sans-serif;

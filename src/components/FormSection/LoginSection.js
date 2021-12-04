@@ -15,7 +15,7 @@ import {
   FormSubmitBtn,
   FormTitle,
 } from "./FormSection.elements";
-import useForm from "./useForm";
+import useForm from "../useForm";
 
 const LoginSection = ({
   errorMsg,

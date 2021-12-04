@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserContext from "./context/GlobalState";
 import { Footer, Navbar, ScrollToTop } from "./components";
 import GlobalStyle from "./globalStyles";
-import { Account, Home, Login, SignUp } from "./pages";
+import { MyAccount, Home, Login, SignUp } from "./pages";
+import Addresses from "./pages/AccountPage/Addresses";
 
 function App() {
   const [values, setValues] = useState({
@@ -37,7 +38,8 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/sign-up" element={<SignUp />} />
           {!values.email && <Route path="/account" element={<Login />} />}
-          {!!values.email && <Route path="/account" element={<Account />} />}
+          {!!values.email && <Route path="/account" element={<MyAccount />} />}
+          <Route path="/account/addresses" element={<Addresses />} />
         </Routes>
         <Footer />
       </Router>

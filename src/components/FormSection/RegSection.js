@@ -15,7 +15,7 @@ import {
   FormSuccess,
   FormTitle,
 } from "./FormSection.elements";
-import useForm from "./useForm";
+import useForm from "../useForm";
 
 const RegSection = ({
   errorMsg,
