@@ -55,7 +55,7 @@ export const AcctGrid = styled.div`
   }
 `;
 
-export const AcctGrid_item = styled.div`
+export const AcctGridItem = styled.div`
   float: left;
   min-height: 1px;
   padding-left: 22px;

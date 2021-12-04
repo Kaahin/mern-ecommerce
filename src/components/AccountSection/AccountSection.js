@@ -5,7 +5,7 @@ import Heading, {
   AcctButton,
   AcctContainer,
   AcctGrid,
-  AcctGrid_item,
+  AcctGridItem,
   AcctHeader,
   AcctSec,
   AcctSubtitle,
@@ -45,13 +45,13 @@ const AccountSection = ({ area, header, lightBg, link, subtitle }) => {
           </AcctButton>
         </AcctHeader>
         <AcctGrid>
-          <AcctGrid_item area={area[0]}>
+          <AcctGridItem area={area[0]}>
             <Heading level={2} style={{ fontSize: "18px" }}>
               {header[1]}
             </Heading>
             <AcctSubtitle>{subtitle[0]}</AcctSubtitle>
-          </AcctGrid_item>
-          <AcctGrid_item area={area[1]}>
+          </AcctGridItem>
+          <AcctGridItem area={area[1]}>
             <Heading level={3} style={{ fontSize: "14px" }}>
               {header[2]}
             </Heading>
@@ -71,7 +71,7 @@ const AccountSection = ({ area, header, lightBg, link, subtitle }) => {
                 {link[1]}
               </Link>
             </AcctSubtitle>
-          </AcctGrid_item>
+          </AcctGridItem>
         </AcctGrid>
       </AcctContainer>
     </AcctSec>
