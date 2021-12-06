@@ -36,10 +36,12 @@ app.use(
 // const secureRoute = require("./routes/secure"); // används för säkring av sidan.
 // app.use("/api/secure", secureRoute);
 //
-import authRoute from "./routes/auth.js"; // Authentication
-import regRoute from "./routes/reg.js"; // Registration
-import verRoute from "./routes/ver.js"; // User data
+import addrRoute from "./routes/address/addr.js";
+import authRoute from "./routes/account/auth.js"; // Authentication
+import regRoute from "./routes/account/reg.js"; // Registration
+import verRoute from "./routes/account/ver.js"; // User data
 
+app.use("/", addrRoute);
 app.use("/", authRoute);
 app.use("/", regRoute);
 app.use("/", verRoute);

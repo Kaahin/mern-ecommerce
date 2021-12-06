@@ -33,17 +33,20 @@ export const FormError = styled.div`
   text-align: left;
 `;
 
-export const FormSuccess = styled.div`
-  color: #2ed02e;
-  background-color: #f6fff6;
-  border-color: #2ed02e;
-  border: 1px solid;
-  max-width: 440px;
-  padding: 6px 12px;
-  margin-bottom: 15px;
-  font-size: 13px;
-  line-height: 18px;
-  text-align: left;
+export const FormGrid = styled.div`
+  list-style: none;
+  margin-left: -10px;
+`;
+
+export const FormGridItem = styled.div`
+  padding-left: 10px;
+  width: 50%;
+  min-height: 1px;
+  float: left;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const FormHeader = styled.div`
@@ -64,13 +67,14 @@ export const FormInput = styled.input.attrs((props) => ({
   border: 1px solid;
   border-radius: 0;
   width: 100%;
+  line-height: 1.4;
 
   @media screen and (max-width: 960px) {
     font-size: 16px;
   }
 `;
 
-export const FormLabel = styled.label.attrs((props) =>({
+export const FormLabel = styled.label.attrs((props) => ({
   id: props.id,
 }))`
   display: block;
@@ -82,6 +86,14 @@ export const FormLabel = styled.label.attrs((props) =>({
   text-transform: uppercase;
   cursor: pointer;
   color: ${({ lightTextDesc }) => (lightTextDesc ? "#a9b3c1" : "#1c2237")};
+`;
+
+export const FormList = styled.ul`
+  margin-left: 20px;
+`;
+
+export const FormListItem = styled.li`
+  margin-bottom: 0;
 `;
 
 export const FormSec = styled.main`
@@ -111,12 +123,17 @@ export const FormSubmitBtn = styled.button.attrs((props) => ({
   color: ${({ lightTextDesc }) => (lightTextDesc ? "#a9b3c1" : "#1c2237")};
 `;
 
-export const FormList = styled.ul`
-  margin-left: 20px;
-`;
-
-export const FormListItem = styled.li`
-  margin-bottom: 0;
+export const FormSuccess = styled.div`
+  color: #2ed02e;
+  background-color: #f6fff6;
+  border-color: #2ed02e;
+  border: 1px solid;
+  max-width: 440px;
+  padding: 6px 12px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: left;
 `;
 
 export const FormTitle = styled.h1`

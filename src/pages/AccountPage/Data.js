@@ -7,7 +7,17 @@ export const myaccountObjOne = {
 };
 
 export const addressObjOne = {
-  lightBg: true,
   header: "Addresses",
+  label: [
+    "FIRST NAME",
+    "LAST NAME",
+    "ADDRESS",
+    "C/O",
+    "CITY",
+    "COUNTRY",
+    "POSTAL CODE",
+    "PHONE",
+  ],
+  lightBg: true,
   link: ["My account", "ADD ADDRESS"],
 };

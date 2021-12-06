@@ -33,17 +33,10 @@ const Navbar = () => {
     }
   };
 
-  // useEffect(() => {
-  //   showButton();
-  // }, []);
-
   window.addEventListener("resize", showButton);
 
   const [values, setValues] = useState({
-    first: "",
-    last: "",
     email: "",
-    password: "",
   });
 
   useEffect(() => {
@@ -51,10 +44,9 @@ const Navbar = () => {
     axios
       .get("http://localhost:4000/user", { withCredentials: true })
       .then((response) => {
-        setValues((values) => ({
-          ...values,
+        setValues({
           email: response.data.email,
-        }));
+        });
       });
   }, []);
 

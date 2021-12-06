@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import UserContext from "../context/GlobalState";
+import UserContext from "../../context/GlobalState";
 
 const useForm = () => {
   const [values, setValues] = useState({
@@ -8,12 +8,38 @@ const useForm = () => {
     last: "",
     email: "",
     password: "",
+    address: "",
+    care_of: "",
+    city: "",
+    country: "",
+    postal_code: "",
+    phone: "",
   });
 
   const [error, setError] = useState(null);
   const _isMounted = useRef(true);
   const user = useContext(UserContext);
 
+  const addAddr = () => {
+    const { first, last, address, care_of, city, country, postal_code, phone } =
+      values;
+    const data = {
+      first,
+      last,
+      address,
+      care_of,
+      city,
+      country,
+      postal_code,
+      phone,
+    };
+
+    axios
+      .post("http://localhost:4000/address", data, { withCredentials: true })
+      .then(() => {});
+  };
+
+  
   const login = () => {
     const { email, password } = values;
     const data = { email, password };
@@ -32,7 +58,6 @@ const useForm = () => {
             email: "",
             password: "",
           }));
-
           setError(false);
 
           setTimeout(() => {
@@ -45,7 +70,7 @@ const useForm = () => {
       });
   };
 
-  const createUser = (e) => {
+  const createUser = () => {
     const data = values;
     axios
       .post("http://localhost:4000/register", data, { withCredentials: true })
@@ -82,6 +107,11 @@ const useForm = () => {
     });
   };
 
+  const handleSubmitAddress = () => {
+    addAddr();
+  };
+
+
   const handleSubmitLogin = (e) => {
     e.preventDefault();
     login();
@@ -102,6 +132,7 @@ const useForm = () => {
     error,
     setError,
     handleChange,
+    handleSubmitAddress,
     handleSubmitLogin,
     handleSubmitReg,
     setValues,

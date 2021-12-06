@@ -74,13 +74,17 @@ export const AcctLink = styled.link`
 
 export const AcctNav = styled.nav`
   font-size: 11px;
-  margin: 0.25px 0 10px;
+  margin: -25px 0 10px;
   text-align: center !important;
   color: black;
 
   @media screen and (max-width: 768px) {
     margin-bottom: 15px;
   }
+`;
+
+export const AcctToogle = styled.div`
+  display: ${({ toogle }) => (toogle ? "block" : "none")};
 `;
 
 export const AcctSec = styled.main`
