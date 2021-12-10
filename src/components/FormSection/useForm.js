@@ -1,24 +1,27 @@
-import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useEffect, useContext, useRef, useState } from "react";
 import UserContext from "../../context/GlobalState";
+import { useLocation } from "react-router-dom";
 
 const useForm = () => {
+  const location = useLocation();
+  const _isMounted = useRef(true);
+  const [error, setError] = useState("");
+  const { user } = useContext(UserContext);
   const [values, setValues] = useState({
-    first: "",
-    last: "",
-    email: "",
-    password: "",
     address: "",
     care_of: "",
     city: "",
     country: "",
-    postal_code: "",
+    email: "",
+    first: "",
+    item: "",
+    last: "",
+    password: "",
     phone: "",
+    postal_code: "",
+    price: "",
   });
-
-  const [error, setError] = useState(null);
-  const _isMounted = useRef(true);
-  const user = useContext(UserContext);
 
   const addAddr = () => {
     const { first, last, address, care_of, city, country, postal_code, phone } =
@@ -36,10 +39,23 @@ const useForm = () => {
 
     axios
       .post("http://localhost:4000/address", data, { withCredentials: true })
+      .then(() => {
+        window.location.reload();
+      });
+  };
+
+  const addProd = () => {
+    const { item, price } = values;
+    const data = {
+      item,
+      price,
+    };
+
+    axios
+      .post("http://localhost:4000/product", data, { withCredentials: true })
       .then(() => {});
   };
 
-  
   const login = () => {
     const { email, password } = values;
     const data = { email, password };
@@ -47,51 +63,56 @@ const useForm = () => {
     axios
       .post("http://localhost:4000/login", data, { withCredentials: true })
       .then((response) => {
-        if (_isMounted) {
-          user.setValues((values) => ({
-            ...values,
-            email: response.data.email,
-          }));
-
-          setValues((values) => ({
-            ...values,
-            email: "",
-            password: "",
-          }));
-          setError(false);
-
-          setTimeout(() => {
-            window.location.reload(true);
-          }, 2000);
-        }
+        user.setAuth(response.data.auth);
+        setValues((values) => ({
+          ...values,
+          email: "",
+          password: "",
+        }));
+        setError(false);
       })
       .catch(() => {
         setError(true);
       });
   };
 
-  const createUser = () => {
-    const data = values;
+  const loginAdmin = () => {
+    const { email, password } = values;
+    const data = { email, password };
+
     axios
+      .post("http://localhost:4000/login/admin", data, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        user.setAuth(response.data.auth);
+        setValues((values) => ({
+          ...values,
+          email: "",
+          password: "",
+        }));
+        setError(false);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  };
+
+  const createUser = async () => {
+    const { email, first, last, password} = values;
+    const data = { email, first, last, password};
+    await axios
       .post("http://localhost:4000/register", data, { withCredentials: true })
       .then((response) => {
         if (_isMounted) {
-          user.setValues((values) => ({
-            ...values,
-            email: response.data.email,
-          }));
-
+          setError(false);
+          const newdata = response.data.auth;
+          user.setAuth(newdata);
           setValues((values) => ({
             ...values,
             email: "",
             password: "",
           }));
-
-          setError(false);
-
-          setTimeout(() => {
-            window.location = "/account";
-          }, 3000);
         }
       })
       .catch(() => {
@@ -107,19 +128,32 @@ const useForm = () => {
     });
   };
 
-  const handleSubmitAddress = () => {
+  const handleSubmitAddress = (e) => {
+    e.preventDefault();
     addAddr();
   };
 
-
-  const handleSubmitLogin = (e) => {
+  const handleSubmitProduct = (e) => {
     e.preventDefault();
+    addProd();
+  };
+
+  const handleSubmitLogin = () => {
     login();
+  };
+  const handleSubmitLoginAdmin = () => {
+    loginAdmin();
   };
 
   const handleSubmitReg = (e) => {
     e.preventDefault();
-    createUser();
+    createUser()
+      .then(() => {
+        window.location.reload();
+      })
+      .then(() => {
+        window.location.href = "/account";
+      });
   };
 
   useEffect(() => {
@@ -128,13 +162,21 @@ const useForm = () => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   if (error) {
+  //     setError(null);
+  //   }
+  // }, [location.pathname]);
+
   return {
     error,
-    setError,
     handleChange,
     handleSubmitAddress,
     handleSubmitLogin,
+    handleSubmitLoginAdmin,
+    handleSubmitProduct,
     handleSubmitReg,
+    setError,
     setValues,
     values,
   };

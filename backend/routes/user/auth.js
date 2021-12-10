@@ -17,12 +17,12 @@ authRoute.post("/login", async (req, res) => {
       jwt.sign({ id: userInfo._id }, process.env.TOKEN_SECRET, (err, token) => {
         err
           ? (console.log(err), res.sendStatus(500))
-          : res
-              .cookie("token", token)
-              .json({
-                id: userInfo._id,
-                email: userInfo.email,
-              });
+          : res.cookie("token", token).json({
+              id: userInfo._id,
+              email: userInfo.email,
+              auth: true,
+              admin: userInfo.admin,
+            });
       });
     } else {
       res.sendStatus(401);

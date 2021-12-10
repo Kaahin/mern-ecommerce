@@ -27,7 +27,7 @@ regRoute.post("/register", async (req, res) => {
           ? (console.log(err), res.sendStatus(500))
           : res
               .cookie("token", token)
-              .json({ id: userInfo._id, email: userInfo.email });
+              .json({ id: userInfo._id, email: userInfo.email, auth: true });
       }
     );
   });

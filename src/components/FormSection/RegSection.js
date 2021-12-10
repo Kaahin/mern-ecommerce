@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import {
   Form,
   FormContainer,
@@ -39,6 +39,11 @@ const RegSection = ({
   const onClickFocus = (input) => {
     input.current.focus();
   };
+
+
+  useLayoutEffect(() => {
+    console.log(error);
+  }, [error]);
 
   return (
     <>

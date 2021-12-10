@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../../context/GlobalState";
 
 import Heading, {
   AcctButton,
@@ -12,31 +13,14 @@ import Heading, {
   AcctSubtitle,
 } from "./AccountSection.elements";
 
-
 const MyAccountSection = ({ area, header, lightBg, link, subtitle }) => {
-  const [names, setNames] = useState({
-    first: "",
-    last: "",
-  });
-
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/user", { withCredentials: true })
-      .then((response) => {
-        setNames({
-          first: response.data.first,
-          last: response.data.last,
-        });
-      });
-  }, []);
+  const { names, count, setAuth } = useContext(UserContext);
 
   const logout = () => {
     axios
       .post("http://localhost:4000/logout", {}, { withCredentials: true })
       .then(() => {
-        window.location = "/";
+        setAuth(false);
       });
   };
   return (
@@ -72,7 +56,7 @@ const MyAccountSection = ({ area, header, lightBg, link, subtitle }) => {
                     cursor: "pointer",
                   }}
                 >
-                  {link[1]} {count}
+                  {link[1]} {'('}{count}{')'}
                 </Link>
               </AcctSubtitle>
             </AcctGridItem>

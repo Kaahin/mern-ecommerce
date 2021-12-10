@@ -4,6 +4,24 @@ export const Form = styled.form.attrs({
   action: "",
 })``;
 
+export const FormButton = styled.a.attrs((props) => ({
+  to: props.to,
+}))`
+  border: 1px solid;
+  background-color: transparent;
+  border-color: black;
+  line-height: 1.42;
+  letter-spacing: 0.3em;
+  text-align: center;
+  padding: 8px 14px;
+  min-width: 90px;
+  border-radius: 3px;
+  margin-top: 10px;
+  text-decoration: "none";
+  color: black;
+  cursor: pointer;
+`;
+
 export const FormContainer = styled.div`
   max-width: 1300px;
   margin: 0 auto;

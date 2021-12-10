@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
+import UserContext from "../../context/GlobalState.js";
 import { Button } from "../../globalStyles.js";
 
 import {
@@ -35,19 +35,10 @@ const Navbar = () => {
 
   window.addEventListener("resize", showButton);
 
-  const [values, setValues] = useState({
-    email: "",
-  });
+  const { auth } = useContext(UserContext);
 
   useEffect(() => {
     showButton();
-    axios
-      .get("http://localhost:4000/user", { withCredentials: true })
-      .then((response) => {
-        setValues({
-          email: response.data.email,
-        });
-      });
   }, []);
 
   return (
@@ -74,21 +65,14 @@ const Navbar = () => {
               </NavItem>
               <NavItemBtn>
                 {button ? (
-                  <NavBtnLink to="/account">
+                  <NavBtnLink to={auth ? "/account" : "/login"}>
                     <NavBtnIcon />
                   </NavBtnLink>
                 ) : (
-                  <NavBtnLink to="/account">
-                    {!values.email && (
-                      <Button onClick={closeMobileMenu} fontBig primary>
-                        Log in
-                      </Button>
-                    )}
-                    {!!values.email && (
-                      <Button onClick={closeMobileMenu} fontBig primary>
-                        Account
-                      </Button>
-                    )}
+                  <NavBtnLink to={auth ? "/account" : "/login"}>
+                    <Button onClick={closeMobileMenu} fontBig primary>
+                      {auth ? "Account" : "Log in"}
+                    </Button>
                   </NavBtnLink>
                 )}
               </NavItemBtn>

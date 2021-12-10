@@ -1,12 +1,13 @@
-import React from 'react'
-import { adminObjOne } from './Data'
+import React from "react";
+import { AdminLoginSection } from "../../components";
+import { adminObjOne } from "./Data";
 
 const Admin = () => {
-    return (
-        <>
-            
-        </>
-    )
-}
+  return (
+    <>
+      <AdminLoginSection {...adminObjOne} />
+    </>
+  );
+};
 
-export default Admin
+export default Admin;

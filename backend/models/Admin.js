@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema(
+const AdminSchema = new mongoose.Schema(
   {
     first: {
       type: String,
@@ -19,10 +19,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    admin: { type: Boolean, default: false },
+    admin: { type: Boolean, default: true },
   },
   { autoIndex: true, timestamps: true }
 );
-const User = mongoose.model("User", UserSchema);
+const Admin = mongoose.model("Admin", AdminSchema);
 
-export default User;
+export default Admin;

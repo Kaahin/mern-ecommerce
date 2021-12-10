@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext,  useState } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../../context/GlobalState";
 import AddrForm from "../FormSection/AddrForm";
 import Heading, {
   AcctButton,
@@ -15,16 +15,7 @@ import AddressList from "./AddressList";
 
 const AddressSection = ({ header, link, lightBg }) => {
   const [toogle, setToogle] = useState(false);
-  const [addrList, setAddrList] = useState("");
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/address", { withCredentials: true })
-      .then((response) => {
-        const allAddrList = response.data;
-        setAddrList(allAddrList);
-      });
-  }, []);
+  const {addrList} = useContext(UserContext);
 
   return (
     <>
@@ -48,7 +39,7 @@ const AddressSection = ({ header, link, lightBg }) => {
             <Heading level={1} style={{ marginBottom: "20px" }}>
               {header}
             </Heading>
-            <AcctButton  onClick={() => setToogle(!toogle)}>
+            <AcctButton onClick={() => setToogle(!toogle)}>
               {link[1]}
             </AcctButton>
           </AcctHeader>

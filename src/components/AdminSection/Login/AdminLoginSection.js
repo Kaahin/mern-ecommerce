@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../../../context/GlobalState";
 import {
   Form,
   FormContainer,
@@ -14,20 +15,20 @@ import {
   FormSubmit,
   FormSubmitBtn,
   FormTitle,
-} from "./FormSection.elements";
-import useForm from "./useForm";
+} from "../../FormSection/FormSection.elements";
+import useForm from "../../FormSection/useForm";
 
-const LoginSection = ({
+const AdminLoginSection = ({
   errorMsg,
   header,
   label,
   lightBg,
   lightTextDesc,
   lightTopLine,
-  link,
   submitLabel,
 }) => {
-  const { error, handleChange, handleSubmitLogin, values } = useForm();
+  const { handleChange, values, handleSubmitLoginAdmin, error } = useForm();
+
   // Går det att göra ett enklare utryck??
   //----------
   const inputRef = useRef(null);
@@ -36,11 +37,6 @@ const LoginSection = ({
   const onClickFocus = (input) => {
     input.current.focus();
   };
-
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
-
   //-------------
 
   return (
@@ -50,7 +46,7 @@ const LoginSection = ({
           <FormTitle>{header}</FormTitle>
         </FormHeader>
         <FormContent>
-          <Form onSubmit={handleSubmitLogin}>
+          <Form onSubmit={handleSubmitLoginAdmin}>
             {error && (
               <FormError>
                 <FormList>
@@ -86,15 +82,8 @@ const LoginSection = ({
               ref={inputRef2}
             />
             <FormSubmit>
+              <Link to="Dashboard" />
               <FormSubmitBtn type="submit">{submitLabel}</FormSubmitBtn>
-            </FormSubmit>
-            <FormSubmit>
-              <Link
-                to="/sign-up"
-                style={{ textDecoration: "none", color: "#1c2237" }}
-              >
-                {link}
-              </Link>
             </FormSubmit>
           </Form>
         </FormContent>
@@ -103,4 +92,4 @@ const LoginSection = ({
   );
 };
 
-export default LoginSection;
+export default AdminLoginSection;

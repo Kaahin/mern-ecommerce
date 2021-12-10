@@ -10,7 +10,13 @@ verRoute.get("/user", (req, res) => {
   }
   const payload = jwt.verify(req.cookies.token, process.env.TOKEN_SECRET);
   User.findById(payload.id).then((userInfo) => {
-    !userInfo ? res.json({}) : res.json(userInfo);
+    if (!userInfo) {
+      res.json({});
+    } else {
+      const pair = { auth: true };
+
+      res.json({ userInfo, pair });
+    }
   });
 });
 

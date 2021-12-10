@@ -5,16 +5,21 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 // Creating an instance of dotenv
-dotenv.config(); 
+dotenv.config();
 
 // Connecting to MongoDB
-await mongoose.connect(
+
+// users db
+mongoose.connect(
   process.env.DB_CONNECT,
   { useUnifiedTopology: true, UseNewUrlParser: true },
   () => {
     console.log("Connected to database!");
   }
 );
+
+
+
 
 const db = mongoose.connection;
 db.on("error", console.log);
@@ -32,31 +37,29 @@ app.use(
 
 // Route Middlewares
 
-// Security and Verification ?? 
-// const secureRoute = require("./routes/secure"); // används för säkring av sidan.
-// app.use("/api/secure", secureRoute);
-//
-import addrRoute from "./routes/address/addr.js";
-import authRoute from "./routes/account/auth.js"; // Authentication
-import regRoute from "./routes/account/reg.js"; // Registration
-import verRoute from "./routes/account/ver.js"; // User data
+import addrRoute from "./routes/address/addr.js"; // User AddressList
+import authRoute from "./routes/user/auth.js"; // Authentication
+import authAdminRoute from "./routes/admin/auth.js"; // Admin Authentication
+import prodRoute from "./routes/products/prod.js"; // Commercial ProductsList
+import regRoute from "./routes/user/reg.js"; // Registration
+import verRoute from "./routes/user/ver.js"; // Verification and User Data
 
 app.use("/", addrRoute);
 app.use("/", authRoute);
+app.use("/", authAdminRoute);
+app.use("/", prodRoute);
 app.use("/", regRoute);
 app.use("/", verRoute);
 
 // Routes
-
 app.get("/", (req, res) => {
-  res.send("ok");     // Creates a page with text 'ok' 
+  res.send("ok"); // Creates a page with text 'ok'
 });
 
 // Server pages
 // const pages = require("./routes/pages");
 // app.use(express.static("public"));
 // app.use("/", pages);
-
 
 // Port to listen
 app.listen(4000, () => {
